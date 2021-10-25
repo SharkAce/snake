@@ -3,22 +3,18 @@ let options = {
   size: 3
 }
 
-let wn = {
-  x: 1120,
-  y: 700,
-  row: 20*options.size*0.25,
-  col: 32*options.size*0.25
-}
-
 let failState = false
 let frame = 0
 let direction
 let apple
+let wn
 reset()
 
 function setup(){
   let canvas = createCanvas(wn.x,wn.y)
   canvas.parent('canvas')
+  textAlign(CENTER)
+  textSize(50)
 }
 
 function draw(){
@@ -31,5 +27,8 @@ function draw(){
     snake.update()
     world.render()
     frame++
+  }else{
+    fill(50)
+    text(`Score: ${snake.size}`,wn.x/2,wn.y/2)
   }
 }

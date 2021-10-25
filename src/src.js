@@ -13,6 +13,17 @@ let getRandomInt =
 (min,max)=>Math.floor(Math.random()*(max-min+1))+min
 
 function reset(){
+  if (frame!=0){
+    options.size = parseInt(document.getElementById("size").value || 3,10)
+    options.speed = parseInt(document.getElementById("speed").value || 12,10)
+  }
+  wn = {
+    x: 1120,
+    y: 700,
+    row: 20*options.size*0.25,
+    col: 32*options.size*0.25
+  }
+  apple=undefined
   direction = undefined
   failState = false
   world = new World(wn)

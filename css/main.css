@@ -24,3 +24,9 @@ main {
   height: 25px;
   margin: 5px
 }
+
+.options {
+  margin: 5px;
+  display: grid;
+  grid-template-columns: 0.6fr 0.05fr
+}

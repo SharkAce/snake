@@ -28,7 +28,7 @@ class World{
         if (world.cells[i][j]!=0){
           this.color(world.cells[i][j])
           square(j*this.cellSize,i*world.cellSize,world.cellSize)
-          drawGrid()
+          if (document.getElementById("grid").checked){drawGrid()}
         }
       }
     }
