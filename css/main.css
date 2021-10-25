@@ -1,0 +1,26 @@
+body {
+  overflow: hidden;
+  background-color: #353535;
+  display: flex;
+  margin: 0px;
+}
+
+main {
+  color: white;
+  font-size: 18px;
+  width: 160px;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+#canvas {
+  width: fit-content;
+  margin: 20px
+}
+
+.btn {
+  background-color: grey;
+  width: 50px;
+  height: 25px;
+  margin: 5px
+}
