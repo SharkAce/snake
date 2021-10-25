@@ -14,8 +14,12 @@ let getRandomInt =
 
 function reset(){
   if (frame!=0){
-    options.size = parseInt(document.getElementById("size").value || 3,10)
-    options.speed = parseInt(document.getElementById("speed").value || 12,10)
+    options.size = parseInt(
+      document.getElementById("size").value||options.size,10
+    )
+    options.speed = parseInt(
+      document.getElementById("speed").value||options.speed,10
+    )
   }
   wn = {
     x: 1120,
@@ -45,10 +49,10 @@ function updateFailState(){
 }
 
 function keyPressed(){
-  if (key == "w" && (direction!="down"||snake.size==0)){direction="up"}
-  else if (key == "s" && (direction!="up"||snake.size==0)){direction="down"}
-  else if (key == "a" && (direction!="right"||snake.size==0)){direction="left"}
-  else if (key == "d" && (direction!="left"||snake.size==0)){direction="right"}
+  if (key == "w" && (perFrameDirection!="down"||snake.size==0)){direction="up"}
+  else if (key == "s" && (perFrameDirection!="up"||snake.size==0)){direction="down"}
+  else if (key == "a" && (perFrameDirection!="right"||snake.size==0)){direction="left"}
+  else if (key == "d" && (perFrameDirection!="left"||snake.size==0)){direction="right"}
   else if (key == "Enter"){reset()}
 }
 

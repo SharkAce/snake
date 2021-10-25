@@ -46,7 +46,7 @@ class Snake{
       this.body.splice(this.body.indexOf(this.body[0]),1);
     }
 
-    this.moveHead(direction)
+    this.moveHead(perFrameDirection)
 
     if (world.cells[this.y][this.x]=="apple"){
       world.newApple();

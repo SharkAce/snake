@@ -3,11 +3,14 @@ let options = {
   size: 3
 }
 
-let failState = false
-let frame = 0
-let direction
-let apple
-let wn
+let
+  failState = false,
+  frame = 0,
+  direction,
+  perFrameDirection,
+  apple,
+  wn
+
 reset()
 
 function setup(){
@@ -24,6 +27,7 @@ function draw(){
   updateFailState()
 
   if (!failState){
+    perFrameDirection=direction
     snake.update()
     world.render()
     frame++
