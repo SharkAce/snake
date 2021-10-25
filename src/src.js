@@ -28,7 +28,8 @@ function reset(){
     col: 32*options.size*0.25
   }
   apple=undefined
-  direction = undefined
+  direction="undefined"
+  directionQueue = []
   failState = false
   world = new World(wn)
   snake = new Snake()
@@ -49,10 +50,10 @@ function updateFailState(){
 }
 
 function keyPressed(){
-  if (key == "w" && (perFrameDirection!="down"||snake.size==0)){direction="up"}
-  else if (key == "s" && (perFrameDirection!="up"||snake.size==0)){direction="down"}
-  else if (key == "a" && (perFrameDirection!="right"||snake.size==0)){direction="left"}
-  else if (key == "d" && (perFrameDirection!="left"||snake.size==0)){direction="right"}
+  if (key == "w"){directionQueue.push("up")}
+  else if (key == "s"){directionQueue.push("down")}
+  else if (key == "a"){directionQueue.push("left")}
+  else if (key == "d"){directionQueue.push("right")}
   else if (key == "Enter"){reset()}
 }
 
@@ -60,5 +61,19 @@ function drawGrid(){
   for (let i=0; i<wn.x; i+=world.cellSize){
     line(i,0,i,wn.y)
     line(0,i,wn.x,i)
+  }
+}
+
+function updateDirection(){
+  if (directionQueue[0]!=undefined){
+    if (!(
+      (direction=="up"&&directionQueue=="down")||
+      (direction=="down"&&directionQueue=="up")||
+      (direction=="left"&&directionQueue=="right")||
+      (direction=="right"&&directionQueue=="left")
+    )||snake.size==0){
+      direction = directionQueue[0]
+    }
+    directionQueue.splice(0,1)
   }
 }

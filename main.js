@@ -6,8 +6,7 @@ let options = {
 let
   failState = false,
   frame = 0,
-  direction,
-  perFrameDirection,
+  directionQueue = [],
   apple,
   wn
 
@@ -24,10 +23,10 @@ function draw(){
   background(80)
   frameRate(options.speed)
 
+  updateDirection()
   updateFailState()
 
   if (!failState){
-    perFrameDirection=direction
     snake.update()
     world.render()
     frame++

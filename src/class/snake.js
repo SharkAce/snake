@@ -23,7 +23,8 @@ class Snake{
         break;
     }
 
-    //checks if newPos is out of boundry
+    //checks if newPos is out of boundry and is not
+    //going to cause a suicide
     if (world.cells[newPos.y]!=undefined){
       if (world.cells[newPos.y][newPos.x]!=undefined){
           this.x=newPos.x;
@@ -46,7 +47,7 @@ class Snake{
       this.body.splice(this.body.indexOf(this.body[0]),1);
     }
 
-    this.moveHead(perFrameDirection)
+    this.moveHead(direction)
 
     if (world.cells[this.y][this.x]=="apple"){
       world.newApple();
