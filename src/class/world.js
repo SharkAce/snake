@@ -1,11 +1,9 @@
 class World{
-  constructor(wn, options){
-    this.cellSize = wn.y/options.row;
-    this.wn = wn;
-    this.options = options;
+  constructor(wn){
+    this.cellSize = wn.y/wn.row;
     this.cells = makeGrid(
-      options.row,
-      options.col,
+      wn.row,
+      wn.col,
       "0"
       )
     }
@@ -25,29 +23,29 @@ class World{
   }
 
   render(){
-    for (let i=0; i<this.options.row; i++){
-      for (let j=0; j<this.options.col; j++){
+    for (let i=0; i<wn.row; i++){
+      for (let j=0; j<wn.col; j++){
         if (world.cells[i][j]!=0){
           this.color(world.cells[i][j])
           square(j*this.cellSize,i*world.cellSize,world.cellSize)
+          drawGrid()
         }
       }
     }
   }
+
   newApple(){
-    //removes the old one
-    for (let i=0; i<this.options.row; i++){
-      for (let j=0; j<this.options.col; j++){
-        if (this.cells[i][j]=="apple"){
-          this.cells[i][j]==0
-        }
-      }
+    //removes the old apple
+    if (apple != undefined){
+      this.cells[apple.y][apple.x]=0
     }
     while(true){
-      let i=getRandomInt(0,options.row-1)
-      let j=getRandomInt(0,options.col-1)
-      if (this.cells[i][j]==0){
-        this.cells[i][j]="apple"
+      apple={
+        x:getRandomInt(0,wn.col-1),
+        y:getRandomInt(0,wn.row-1)
+      }
+      if (this.cells[apple.y][apple.x]==0){
+        this.cells[apple.y][apple.x]="apple"
         break
       }
     }

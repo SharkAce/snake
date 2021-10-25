@@ -9,14 +9,13 @@ function makeGrid(r,c,v){
   return grid
 }
 
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+let getRandomInt =
+(min,max)=>Math.floor(Math.random()*(max-min+1))+min
 
 function reset(){
   direction = undefined
   failState = false
-  world = new World(wn,options)
+  world = new World(wn)
   snake = new Snake()
   world.newApple()
 }
@@ -32,4 +31,19 @@ function updateFailState(){
       ){bool=true}
   }
   if (bool){failState=true}
+}
+
+function keyPressed(){
+  if (key == "w" && (direction!="down"||snake.size==0)){direction="up"}
+  else if (key == "s" && (direction!="up"||snake.size==0)){direction="down"}
+  else if (key == "a" && (direction!="right"||snake.size==0)){direction="left"}
+  else if (key == "d" && (direction!="left"||snake.size==0)){direction="right"}
+  else if (key == "Enter"){reset()}
+}
+
+function drawGrid(){
+  for (let i=0; i<wn.x; i+=world.cellSize){
+    line(i,0,i,wn.y)
+    line(0,i,wn.x,i)
+  }
 }
