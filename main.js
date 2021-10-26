@@ -25,7 +25,7 @@ function draw(){
   frameRate(options.speed)
   update.direction()
   update.elements()
-  collisions.body()
+  if (collisions.body()){failState=true}
 
   if (!failState){
     snake.update()

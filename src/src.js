@@ -27,12 +27,13 @@ function keyPressed(){
 
 let collisions = {
   boundary:(newPos,snake)=>{
+    let bool = true
     if (world.cells[newPos.y]!=undefined){
       if (world.cells[newPos.y][newPos.x]!=undefined){
-        snake.x=newPos.x;
-        snake.y=newPos.y;
-      }else{failState=true}
-    }else{failState=true}
+        bool = false
+      }
+    }
+    return bool
   },
   body:()=>{
     let bool=false
@@ -42,7 +43,7 @@ let collisions = {
         data.y == snake.y
       ){bool=true}
     }
-    if (bool){failState=true}
+    return bool
   }
 }
 
