@@ -1,3 +1,57 @@
+let update = {
+  elements:()=>{
+    options.grid = document.getElementById("grid").checked||undefined,
+    options.outline = document.getElementById("outline").checked||undefined
+  },
+  direction:()=>{
+    if (directionQueue[0]!=undefined){
+      if (!(
+        (direction=="up"&&directionQueue[0]=="down")||
+        (direction=="down"&&directionQueue[0]=="up")||
+        (direction=="left"&&directionQueue[0]=="right")||
+        (direction=="right"&&directionQueue[0]=="left")
+      )||snake.size==0){
+        direction = directionQueue[0]
+      }
+      directionQueue.splice(0,1)
+    }
+  },
+}
+function color(state){
+  switch (state) {
+    case "apple" :
+      fill(230,10,10);
+      break;
+    case "snakeHead":
+      fill(50);
+      break;
+    case "snakeBody":
+      fill(70);
+      break;
+  }
+}
+
+let collisions = {
+  boundary:(newPos,snake)=>{
+    if (world.cells[newPos.y]!=undefined){
+      if (world.cells[newPos.y][newPos.x]!=undefined){
+        snake.x=newPos.x;
+        snake.y=newPos.y;
+      }else{failState=true}
+    }else{failState=true}
+  },
+  body:()=>{
+    let bool=false
+    for (let data of snake.body){
+      if (
+        data.x == snake.x &&
+        data.y == snake.y
+      ){bool=true}
+    }
+    if (bool){failState=true}
+  }
+}
+
 function makeGrid(r,c,v){
   let grid = []
   for (let i=0; i<r; i++){
@@ -36,19 +90,6 @@ function reset(){
   world.newApple()
 }
 
-//this is only one of the two ways failState can be triggered
-//see funtion moveHead in "src/class/snake.js" for the other way
-function updateFailState(){
-  let bool=false
-  for (let data of snake.body){
-      if (
-        data.x == snake.x &&
-        data.y == snake.y
-      ){bool=true}
-  }
-  if (bool){failState=true}
-}
-
 function keyPressed(){
   if (key == "w"){directionQueue.push("up")}
   else if (key == "s"){directionQueue.push("down")}
@@ -58,22 +99,29 @@ function keyPressed(){
 }
 
 function drawGrid(){
+  stroke(1)
   for (let i=0; i<wn.x; i+=world.cellSize){
     line(i,0,i,wn.y)
     line(0,i,wn.x,i)
   }
 }
 
-function updateDirection(){
-  if (directionQueue[0]!=undefined){
-    if (!(
-      (direction=="up"&&directionQueue=="down")||
-      (direction=="down"&&directionQueue=="up")||
-      (direction=="left"&&directionQueue=="right")||
-      (direction=="right"&&directionQueue=="left")
-    )||snake.size==0){
-      direction = directionQueue[0]
-    }
-    directionQueue.splice(0,1)
+function failScreen(){
+  fill(50)
+  noStroke()
+  text(`Score: ${snake.size}`,wn.x/2,wn.y/2)
+}
+
+function color(state){
+  switch (state) {
+    case "apple" :
+      fill(230,10,10);
+      break;
+    case "snakeHead":
+      fill(50);
+      break;
+    case "snakeBody":
+      fill(70);
+      break;
   }
 }

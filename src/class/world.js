@@ -17,7 +17,7 @@ class World{
         fill(50);
         break;
       case "snakeBody":
-        fill(150);
+        fill(60);
         break;
     }
   }
@@ -26,9 +26,26 @@ class World{
     for (let i=0; i<wn.row; i++){
       for (let j=0; j<wn.col; j++){
         if (world.cells[i][j]!=0){
+          options.outline?
+            stroke(color(`black`)):
+            stroke(color(options.backgroundColor))
+
+          if (options.grid){
+            drawGrid()
+          }
+
           this.color(world.cells[i][j])
-          square(j*this.cellSize,i*world.cellSize,world.cellSize)
-          if (document.getElementById("grid").checked){drawGrid()}
+          let squareCurve = !(options.grid&&options.outline)?3:0
+          square(
+            j*this.cellSize,
+            i*world.cellSize,
+            world.cellSize,
+            squareCurve
+          )
+
+          if (j==apple.x&&i==apple.y&&this.cells[i][j]!="apple"){
+            this.newApple()
+          }
         }
       }
     }
@@ -39,7 +56,7 @@ class World{
     if (apple != undefined){
       this.cells[apple.y][apple.x]=0
     }
-    while(true){
+     while(true){
       apple={
         x:getRandomInt(0,wn.col-1),
         y:getRandomInt(0,wn.row-1)

@@ -1,6 +1,7 @@
 let options = {
   speed: 12,
-  size: 3
+  size: 3,
+  backgroundColor: 80,
 }
 
 let
@@ -15,23 +16,24 @@ reset()
 function setup(){
   let canvas = createCanvas(wn.x,wn.y)
   canvas.parent('canvas')
+  pixelDensity(1)
   textAlign(CENTER)
   textSize(50)
+  noStroke()
 }
 
 function draw(){
-  background(80)
+  background(options.backgroundColor)
   frameRate(options.speed)
-
-  updateDirection()
-  updateFailState()
+  update.direction()
+  update.elements()
+  collisions.body()
 
   if (!failState){
     snake.update()
     world.render()
     frame++
   }else{
-    fill(50)
-    text(`Score: ${snake.size}`,wn.x/2,wn.y/2)
+    failScreen()
   }
 }

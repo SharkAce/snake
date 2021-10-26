@@ -22,15 +22,7 @@ class Snake{
         newPos.x+=1;
         break;
     }
-
-    //checks if newPos is out of boundry and is not
-    //going to cause a suicide
-    if (world.cells[newPos.y]!=undefined){
-      if (world.cells[newPos.y][newPos.x]!=undefined){
-          this.x=newPos.x;
-          this.y=newPos.y;
-      }else{failState=true}
-    }else{failState=true}
+    collisions.boundary(newPos,snake)
   }
 
   update(){
