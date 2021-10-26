@@ -2,9 +2,7 @@ let options = {
   speed: 12,
   size: 3,
   backgroundColor: 80,
-}
-
-let
+},
   failState = false,
   frame = 0,
   directionQueue = [],

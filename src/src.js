@@ -17,18 +17,12 @@ let update = {
     }
   },
 }
-function color(state){
-  switch (state) {
-    case "apple" :
-      fill(230,10,10);
-      break;
-    case "snakeHead":
-      fill(50);
-      break;
-    case "snakeBody":
-      fill(70);
-      break;
-  }
+function keyPressed(){
+  if (key == "w"){directionQueue.push("up")}
+  else if (key == "s"){directionQueue.push("down")}
+  else if (key == "a"){directionQueue.push("left")}
+  else if (key == "d"){directionQueue.push("right")}
+  else if (key == "Enter"){reset()}
 }
 
 let collisions = {
@@ -90,13 +84,6 @@ function reset(){
   world.newApple()
 }
 
-function keyPressed(){
-  if (key == "w"){directionQueue.push("up")}
-  else if (key == "s"){directionQueue.push("down")}
-  else if (key == "a"){directionQueue.push("left")}
-  else if (key == "d"){directionQueue.push("right")}
-  else if (key == "Enter"){reset()}
-}
 
 function drawGrid(){
   stroke(1)
@@ -112,7 +99,7 @@ function failScreen(){
   text(`Score: ${snake.size}`,wn.x/2,wn.y/2)
 }
 
-function color(state){
+function colorPalette(state){
   switch (state) {
     case "apple" :
       fill(230,10,10);
@@ -123,5 +110,7 @@ function color(state){
     case "snakeBody":
       fill(70);
       break;
+    default:
+      fill(backgroundColor)
   }
 }

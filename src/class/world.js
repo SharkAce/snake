@@ -8,20 +8,6 @@ class World{
       )
     }
 
-  color(state){
-    switch (state) {
-      case "apple" :
-        fill(230,10,10);
-        break;
-      case "snakeHead":
-        fill(50);
-        break;
-      case "snakeBody":
-        fill(60);
-        break;
-    }
-  }
-
   render(){
     for (let i=0; i<wn.row; i++){
       for (let j=0; j<wn.col; j++){
@@ -34,7 +20,7 @@ class World{
             drawGrid()
           }
 
-          this.color(world.cells[i][j])
+          colorPalette(world.cells[i][j])
           let squareCurve = !(options.grid&&options.outline)?3:0
           square(
             j*this.cellSize,
