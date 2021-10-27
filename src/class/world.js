@@ -4,14 +4,14 @@ class World{
     this.cells = makeGrid(
       wn.row,
       wn.col,
-      "0"
+      0
       )
     }
 
   render(){
     for (let i=0; i<wn.row; i++){
       for (let j=0; j<wn.col; j++){
-        if (world.cells[i][j]!=0){
+        if (this.cells[i][j]!=0){
           options.outline?
             stroke(color(`black`)):
             stroke(color(options.backgroundColor))
@@ -20,12 +20,12 @@ class World{
             drawGrid()
           }
 
-          colorPalette(world.cells[i][j])
+          colorPalette(this.cells[i][j])
           let squareCurve = !(options.grid&&options.outline)?3:0
           square(
             j*this.cellSize,
-            i*world.cellSize,
-            world.cellSize,
+            i*this.cellSize,
+            this.cellSize,
             squareCurve
           )
 

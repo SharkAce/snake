@@ -22,11 +22,11 @@ class Snake{
         newPos.x+=1;
         break;
     }
-    if (collisions.boundary(newPos,snake)){
+    if (collisions.boundary(newPos,this)){
       failState=true
     }else{
-      snake.x=newPos.x;
-      snake.y=newPos.y;
+      this.x=newPos.x;
+      this.y=newPos.y;
     }
   }
 

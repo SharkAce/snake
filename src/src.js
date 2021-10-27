@@ -77,7 +77,7 @@ function reset(){
     col: 32*options.size*0.25
   }
   apple=undefined
-  direction="undefined"
+  direction=undefined
   directionQueue = []
   failState = false
   world = new World(wn)
