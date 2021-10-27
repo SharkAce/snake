@@ -8,7 +8,7 @@ class Snake{
     this.directionQueue = [];
     this.direction = undefined;
     this.state = 'alive';
-    this.world = new World(wn)
+    this.world = world
   }
 
   moveHead(direction){
@@ -45,7 +45,6 @@ class Snake{
   }
   think() {
     let output = this.brain.feed(concatCells(this.world.cells));
-    // console.log(output)
 
     let biggestValue = output.indexOf(Math.max.apply(1, output));
 
@@ -87,7 +86,7 @@ class Snake{
           (this.direction=="down"&&this.directionQueue[0]=="up")||
           (this.direction=="left"&&this.directionQueue[0]=="right")||
           (this.direction=="right"&&this.directionQueue[0]=="left")
-        )||this.size==0){
+        )/*||this.size==0*/){
           this.direction = this.directionQueue[0];
         }
         this.directionQueue.splice(0,1)

@@ -1,8 +1,9 @@
 
 
 class World{
-  constructor(wn){
+  constructor(){
     this.cellSize = wn.y/wn.row;
+    this.snake = new Snake(this)
     this.cells = makeGrid(
       wn.row,
       wn.col,

@@ -1,9 +1,9 @@
 let options = {
-  speed: 4,
-  size: 2,
+  speed: 20,
+  size: 3,
   backgroundColor: 80,
   nn: {
-    population: 30,
+    population: 80,
     generation: 0
   },
 }
@@ -14,24 +14,17 @@ let wn = {
   col: 32*options.size*0.25
 }
 
-let snakes = [];
-
-for (let i = 0; i < options.nn.population; i++) {
-  snakes.push({
-    snake: new Snake(),
-    id: i,
-    score: 0
-  });
-}
 
 let
   frame = 0,
+  appleFrame = 0,
   directionQueue = [],
-  apple
+  snakes,
+  apple,
   globalCellSize=wn.y/wn.row
 
-
-reset();
+newPopulation();
+newGen();
 
 
 function setup(){
@@ -50,16 +43,18 @@ function draw(){
   update.elements()
 
     for (let i = 0; i < snakes.length; i++) {
-       if (snakes[i].snake.state !== 'dead') {
+       if (snakes[i].world.snake.state !== 'dead') {
 
-        snakes[i].snake.think();
-        snakes[i].snake.changeDirection();
-        if (snakes[i].snake.bodyCollision()){
-          snakes[i].snake.state = 'dead';
+        snakes[i].world.snake.think();
+        snakes[i].world.snake.changeDirection();
+        if (snakes[i].world.snake.bodyCollision()){
+          snakes[i].world.snake.state = 'dead';
        }
      }
-    snakes[i].snake.update();
-    snakes[i].snake.world.render();
-    frame++
+    snakes[i].world.snake.update();
+    snakes[i].world.render();
   }
+  frame++
+  appleFrame++
+  if (appleFrame>(wn.row+wn.col)*2){newGen()}
 }

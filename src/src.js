@@ -1,8 +1,17 @@
 let update = {
   elements:()=>{
     options.grid = document.getElementById("grid").checked||undefined,
-    options.outline = document.getElementById("outline").checked||undefined
+    options.outline = document.getElementById("outline").checked||undefined,
+    options.speed = parseInt(
+      document.getElementById("speed").value||options.speed,10
+    )
   },
+  score:()=>{
+    for (let data of snakes){
+      data.score = data.world.snake.size
+      if (data.world.snake.state=="dead"){data.score-=1}
+    }
+  }
 }
 
 
@@ -29,20 +38,32 @@ function makeGrid(r,c,v){
 let getRandomInt =
 (min,max)=>Math.floor(Math.random()*(max-min+1))+min
 
-function reset(){
-  if (frame!=0){
-    options.size = parseInt(
-      document.getElementById("size").value||options.size,10
-    )
-    options.speed = parseInt(
-      document.getElementById("speed").value||options.speed,10
-    )
-  }
-  // direction="undefined";
-  // directionQueue = [];
+function newPopulation(){
+  let pop = [];
 
+  for (let i = 0; i < options.nn.population; i++) {
+    pop.push({
+      world: new World(),
+      id: i,
+      score: 0
+    });
+  }
+  snakes = pop
+}
+
+
+function newGen(){
+  // if (frame!=0){
+  //   options.size = parseInt(
+  //     document.getElementById("size").value||options.size,10
+  //   )
+  update.score()
+  console.log(snakes[4].score)
+  newPopulation()
   options.nn.generation++
   newApple();
+  frame=0
+  appleFrame=0
 }
 
 
@@ -84,10 +105,10 @@ function newApple(){
   //removes the old ones
   if (apple!=undefined){
     for (let data of snakes){
-    data.snake.world.cells[apple.y][apple.x]=0
+    data.world.cells[apple.y][apple.x]=0
     }
   }
-
+  appleFrame=0
   apple={
     x:getRandomInt(0,wn.col-1),
     y:getRandomInt(0,wn.row-1)
