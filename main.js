@@ -1,15 +1,38 @@
 let options = {
-  speed: 12,
-  size: 3,
+  speed: 4,
+  size: 2,
   backgroundColor: 80,
-},
-  failState = false,
+  nn: {
+    population: 30,
+    generation: 0
+  },
+}
+let wn = {
+  x: 1120,
+  y: 700,
+  row: 20*options.size*0.25,
+  col: 32*options.size*0.25
+}
+
+let snakes = [];
+
+for (let i = 0; i < options.nn.population; i++) {
+  snakes.push({
+    snake: new Snake(),
+    id: i,
+    score: 0
+  });
+}
+
+let
   frame = 0,
   directionQueue = [],
-  apple,
-  wn
+  apple
+  globalCellSize=wn.y/wn.row
 
-reset()
+
+reset();
+
 
 function setup(){
   let canvas = createCanvas(wn.x,wn.y)
@@ -23,15 +46,20 @@ function setup(){
 function draw(){
   background(options.backgroundColor)
   frameRate(options.speed)
-  update.direction()
+  // update.direction()
   update.elements()
-  if (collisions.body()){failState=true}
 
-  if (!failState){
-    snake.update()
-    world.render()
+    for (let i = 0; i < snakes.length; i++) {
+       if (snakes[i].snake.state !== 'dead') {
+
+        snakes[i].snake.think();
+        snakes[i].snake.changeDirection();
+        if (snakes[i].snake.bodyCollision()){
+          snakes[i].snake.state = 'dead';
+       }
+     }
+    snakes[i].snake.update();
+    snakes[i].snake.world.render();
     frame++
-  }else{
-    failScreen()
   }
 }

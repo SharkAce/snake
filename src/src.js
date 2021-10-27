@@ -3,48 +3,16 @@ let update = {
     options.grid = document.getElementById("grid").checked||undefined,
     options.outline = document.getElementById("outline").checked||undefined
   },
-  direction:()=>{
-    if (directionQueue[0]!=undefined){
-      if (!(
-        (direction=="up"&&directionQueue[0]=="down")||
-        (direction=="down"&&directionQueue[0]=="up")||
-        (direction=="left"&&directionQueue[0]=="right")||
-        (direction=="right"&&directionQueue[0]=="left")
-      )||snake.size==0){
-        direction = directionQueue[0]
-      }
-      directionQueue.splice(0,1)
-    }
-  },
-}
-function keyPressed(){
-  if (key == "w"){directionQueue.push("up")}
-  else if (key == "s"){directionQueue.push("down")}
-  else if (key == "a"){directionQueue.push("left")}
-  else if (key == "d"){directionQueue.push("right")}
-  else if (key == "Enter"){reset()}
 }
 
-let collisions = {
-  boundary:(newPos,snake)=>{
-    let bool = true
-    if (world.cells[newPos.y]!=undefined){
-      if (world.cells[newPos.y][newPos.x]!=undefined){
-        bool = false
-      }
-    }
-    return bool
-  },
-  body:()=>{
-    let bool=false
-    for (let data of snake.body){
-      if (
-        data.x == snake.x &&
-        data.y == snake.y
-      ){bool=true}
-    }
-    return bool
+
+
+function concatCells(arr) {
+  let newArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    newArr = newArr.concat(arr[i]);
   }
+  return newArr;
 }
 
 function makeGrid(r,c,v){
@@ -70,48 +38,58 @@ function reset(){
       document.getElementById("speed").value||options.speed,10
     )
   }
-  wn = {
-    x: 1120,
-    y: 700,
-    row: 20*options.size*0.25,
-    col: 32*options.size*0.25
-  }
-  apple=undefined
-  direction="undefined"
-  directionQueue = []
-  failState = false
-  world = new World(wn)
-  snake = new Snake()
-  world.newApple()
+  // direction="undefined";
+  // directionQueue = [];
+
+  options.nn.generation++
+  newApple();
 }
 
 
 function drawGrid(){
   stroke(1)
-  for (let i=0; i<wn.x; i+=world.cellSize){
+  for (let i=0; i<wn.x; i+=globalCellSize){
     line(i,0,i,wn.y)
     line(0,i,wn.x,i)
   }
 }
 
-function failScreen(){
-  fill(50)
-  noStroke()
-  text(`Score: ${snake.size}`,wn.x/2,wn.y/2)
-}
+
 
 function colorPalette(state){
   switch (state) {
-    case "apple" :
+    case 1:
       fill(230,10,10);
       break;
-    case "snakeHead":
+    case -1:
       fill(50);
       break;
-    case "snakeBody":
+    case -0.9:
       fill(70);
       break;
     default:
-      fill(backgroundColor)
+      fill(options.backgroundColor)
+  }
+}
+
+function makeDann(){
+  let nn = new Dann(wn.row*wn.col, 5);
+  nn.addHiddenLayer(16, 'tanH');
+  nn.outputActivation('sigmoid');
+  nn.makeWeights();
+  return nn;
+}
+
+function newApple(){
+  //removes the old ones
+  if (apple!=undefined){
+    for (let data of snakes){
+    data.snake.world.cells[apple.y][apple.x]=0
+    }
+  }
+
+  apple={
+    x:getRandomInt(0,wn.col-1),
+    y:getRandomInt(0,wn.row-1)
   }
 }
