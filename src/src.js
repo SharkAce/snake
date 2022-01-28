@@ -18,10 +18,10 @@ let update = {
   },
 }
 function keyPressed(){
-  if (key == "w"){directionQueue.push("up")}
-  else if (key == "s"){directionQueue.push("down")}
-  else if (key == "a"){directionQueue.push("left")}
-  else if (key == "d"){directionQueue.push("right")}
+  if (key == "w" || key == "k" || keyCode == UP_ARROW){directionQueue.push("up")}
+  else if (key == "s" || key == "j" || keyCode == DOWN_ARROW){directionQueue.push("down")}
+  else if (key == "a" || key == "h" || keyCode == LEFT_ARROW){directionQueue.push("left")}
+  else if (key == "d" || key == "l" || keyCode == RIGHT_ARROW){directionQueue.push("right")}
   else if (key == "Enter"){reset()}
 }
 
