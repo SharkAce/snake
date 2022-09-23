@@ -71,8 +71,8 @@ function reset(){
     )
   }
   wn = {
-    x: 1120,
-    y: 700,
+    x: 1440,
+    y: 900,
     row: 20*options.size*0.25,
     col: 32*options.size*0.25
   }
