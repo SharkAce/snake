@@ -1,3 +1,2 @@
 # Snake
-try it out: https://raw.githack.com/SharkAce/snake/main/index.html
- 
+Try it here: [raw.githack link](https://raw.githack.com/SharkAce/snake/main/index.html)
